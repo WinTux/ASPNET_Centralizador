@@ -1,0 +1,23 @@
+﻿using ASPNET_Centralizador.Models;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace ASPNET_Centralizador.Repos
+{
+    public class ImplEstudianteRepository : IEstudianteRepository
+    {
+        private readonly InstitutoDbContext ddbb;
+        public ImplEstudianteRepository(InstitutoDbContext institutoDbContext) {
+            ddbb = institutoDbContext;
+        }
+        public Estudiante GetEstudianteByCi(int ci)
+        {
+            return ddbb.Estudiantes.FirstOrDefault(est => est.ci == ci);
+        }
+
+        public IEnumerable<Estudiante> GetEstudiantes()
+        {
+            return ddbb.Estudiantes.ToList();
+        }
+    }
+}

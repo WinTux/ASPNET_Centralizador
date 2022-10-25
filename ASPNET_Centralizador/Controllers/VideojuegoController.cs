@@ -2,6 +2,7 @@
 using ASPNET_Centralizador.Repos;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace ASPNET_Centralizador.Controllers
 {
@@ -9,7 +10,10 @@ namespace ASPNET_Centralizador.Controllers
     [Route("api/videojuego")]
     public class VideojuegoController : ControllerBase
     {
-        private readonly ImplVideojuegoRepository repo = new ImplVideojuegoRepository();
+        private readonly IVideojuegoRepository repo;
+        public VideojuegoController(IVideojuegoRepository videojuegoRepository) {
+            repo = videojuegoRepository;
+        }
 
         [HttpGet]
         public ActionResult <IEnumerable<Videojuego>> GetVideojuegos()

@@ -1,7 +1,9 @@
+using ASPNET_Centralizador.Repos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +28,12 @@ namespace ASPNET_Centralizador
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //IVideojuegoRepository -> ImplVideojuegoRepository
+            services.AddScoped<IVideojuegoRepository, ImplVideojuegoRepository>();
+            services.AddScoped<IEstudianteRepository, ImplEstudianteRepository>();
+            services.AddDbContext<InstitutoDbContext>(op=>op.UseSqlServer(
+                Configuration.GetConnectionString("una_conexion")    
+            ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
