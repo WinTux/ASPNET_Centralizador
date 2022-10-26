@@ -7,5 +7,7 @@ namespace ASPNET_Centralizador.Repos
     {
         IEnumerable<Estudiante> GetEstudiantes();
         Estudiante GetEstudianteByCi(int ci);
+        void CreateEstudiante(Estudiante est);
+        bool Guardar();
     }
 }
