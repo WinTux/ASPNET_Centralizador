@@ -19,6 +19,13 @@ namespace ASPNET_Centralizador.Repos
             ddbb.Estudiantes.Add(est);
         }
 
+        public void DeleteEstudiante(Estudiante est)
+        {
+            if(est == null)
+                throw new ArgumentNullException(nameof(est));
+            ddbb.Estudiantes.Remove(est);
+        }
+
         public Estudiante GetEstudianteByCi(int ci)
         {
             return ddbb.Estudiantes.FirstOrDefault(est => est.ci == ci);
@@ -32,6 +39,11 @@ namespace ASPNET_Centralizador.Repos
         public bool Guardar()
         {
             return (ddbb.SaveChanges() > -1);
+        }
+
+        public void UpdateEstudiante(Estudiante est)
+        {
+            //No hacemos nada, pero está abierto a modificaciones (escalable)
         }
     }
 }

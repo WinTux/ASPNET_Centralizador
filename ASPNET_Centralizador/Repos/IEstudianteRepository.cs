@@ -8,6 +8,8 @@ namespace ASPNET_Centralizador.Repos
         IEnumerable<Estudiante> GetEstudiantes();
         Estudiante GetEstudianteByCi(int ci);
         void CreateEstudiante(Estudiante est);
+        void UpdateEstudiante(Estudiante est);
+        void DeleteEstudiante(Estudiante est);
         bool Guardar();
     }
 }

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Serialization;
 
 namespace ASPNET_Centralizador
 {
@@ -27,7 +28,9 @@ namespace ASPNET_Centralizador
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(
+                s => s.SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver());
             //IVideojuegoRepository -> ImplVideojuegoRepository
             services.AddScoped<IVideojuegoRepository, ImplVideojuegoRepository>();
             services.AddScoped<IEstudianteRepository, ImplEstudianteRepository>();
@@ -35,6 +38,7 @@ namespace ASPNET_Centralizador
                 Configuration.GetConnectionString("una_conexion")    
             ));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
