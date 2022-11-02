@@ -28,6 +28,12 @@ namespace ASPNET_Centralizador
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Variables de entorno para DDBB con Docker
+            var servidor = Configuration["DBservidor"] ?? "192.168.1.253";
+            var puerto = Configuration["DBpuerto"] ?? "1433";
+            var usuario = Configuration["DBusuario"] ?? "ConexionParaAPI";
+            var password = Configuration["DBpassword"] ?? "123456";
+
             services.AddControllers().AddNewtonsoftJson(
                 s => s.SerializerSettings.ContractResolver =
                 new CamelCasePropertyNamesContractResolver());

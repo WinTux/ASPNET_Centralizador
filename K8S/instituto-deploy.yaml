@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: instituto-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: institutoservice
+  template:
+    metadata:
+      labels:
+        app: institutoservice
+    spec:
+      containers:
+        - name: institutoservice
+          image: pepe/aspnet_centralizador
+          imagePullPolicy: IfNotPresent
