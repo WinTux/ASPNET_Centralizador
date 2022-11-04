@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPNET_Centralizador", "ASPNET_Centralizador\ASPNET_Centralizador.csproj", "{A342C482-EB43-4BEA-8C10-63F6CEB623B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPNET_Centralizador", "ASPNET_Centralizador\ASPNET_Centralizador.csproj", "{A342C482-EB43-4BEA-8C10-63F6CEB623B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPNET_campus", "ASPNET_campus\ASPNET_campus.csproj", "{D0E06AA5-0EAD-4173-A1A5-DF771A5B7A12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A342C482-EB43-4BEA-8C10-63F6CEB623B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A342C482-EB43-4BEA-8C10-63F6CEB623B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A342C482-EB43-4BEA-8C10-63F6CEB623B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0E06AA5-0EAD-4173-A1A5-DF771A5B7A12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0E06AA5-0EAD-4173-A1A5-DF771A5B7A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0E06AA5-0EAD-4173-A1A5-DF771A5B7A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0E06AA5-0EAD-4173-A1A5-DF771A5B7A12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
