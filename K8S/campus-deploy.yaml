@@ -1,32 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: instituto-deploy
+  name: campus-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: institutoservice
+      app: campusservice
   template:
     metadata:
       labels:
-        app: institutoservice
+        app: campusservice
     spec:
       containers:
-        - name: institutoservice
-          image: pepe/aspnet_centralizador
+        - name: campusservice
+          image: pepe/aspnet_campus
           imagePullPolicy: IfNotPresent
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: instituto-clusterip-service
+  name: campus-clusterip-service
 spec:
   type: ClusterIP
   selector:
-    app: institutoservice
+    app: campusservice
   ports:
-    - name: institutoservice
+    - name: campusservice
       protocol: TCP
       port: 80
       targetPort: 80

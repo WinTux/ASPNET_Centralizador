@@ -1,11 +1,14 @@
-﻿using ASPNET_Centralizador.DTO;
+﻿using ASPNET_Centralizador.ComunicacionSync.Http;
+using ASPNET_Centralizador.DTO;
 using ASPNET_Centralizador.Models;
 using ASPNET_Centralizador.Repos;
 using AutoMapper;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ASPNET_Centralizador.Controllers
 {
@@ -15,10 +18,12 @@ namespace ASPNET_Centralizador.Controllers
     {
         private readonly IEstudianteRepository repo;
         private readonly IMapper mapper;
-        public EstudianteController(IEstudianteRepository estRepository, IMapper mapper)
+        private readonly ICampusHistorialCliente campusHistorialCliente;
+        public EstudianteController(IEstudianteRepository estRepository, IMapper mapper, ICampusHistorialCliente campusHistorialCliente)
         {
             repo = estRepository;
             this.mapper = mapper;
+            this.campusHistorialCliente = campusHistorialCliente;
         }
         [HttpGet]
         public ActionResult<IEnumerable<EstudianteReadDTO>> getEstudiantes()
@@ -37,13 +42,22 @@ namespace ASPNET_Centralizador.Controllers
         }
 
         [HttpPost]
-        public ActionResult<EstudianteReadDTO> setEstudiante(EstudianteCreateDTO estCreateDTO)
+        public async Task<ActionResult<EstudianteReadDTO>> setEstudiante(EstudianteCreateDTO estCreateDTO)
         {
             Estudiante estudiante = mapper.Map<Estudiante>(estCreateDTO);
             repo.CreateEstudiante(estudiante);
             repo.Guardar();
 
             EstudianteReadDTO estRetorno = mapper.Map<EstudianteReadDTO>(estudiante);
+
+            try {
+                await campusHistorialCliente.ComunicarseConCampus(estRetorno);
+            } catch (Exception e) {
+                Console.WriteLine("Ocurrió un erro al intentar comunicarse con el servicio Campus " +
+                    "(forma sincronizada)");
+                Console.WriteLine(e.Message);
+            }
+
             return CreatedAtRoute(nameof(getestudiante), new { ci = estRetorno.ci }, estRetorno);
         }
 

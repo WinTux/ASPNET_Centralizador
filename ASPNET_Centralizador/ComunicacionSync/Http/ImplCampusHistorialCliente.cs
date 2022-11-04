@@ -23,7 +23,7 @@ namespace ASPNET_Centralizador.ComunicacionSync.Http
         {
             StringContent cuerpoHttp = new StringContent(
                 JsonSerializer.Serialize(est), Encoding.UTF8, "application/json");
-            var respuesta = await httpClient.PostAsync($"{configuration["CampusService"]}", cuerpoHttp);
+            var respuesta = await httpClient.PostAsync($"{configuration["CampusService"]}/api/historial", cuerpoHttp);
             if (respuesta.IsSuccessStatusCode)
                 Console.WriteLine("Envío de POST sincronizado hacia servico Campus tuvo éxito");
             else
