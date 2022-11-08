@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlserver-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: misqlserver
+  template:
+    metadata:
+      labels:
+        app: misqlserver
+
+    spec:
+      containers:
+        - name: misqlserver
+          image: mcr.microsoft.com/mssql/server:2019-latest
+          ports:
+            - containerPort: 1433
+          env:
+          - name: MSSQL_PID
