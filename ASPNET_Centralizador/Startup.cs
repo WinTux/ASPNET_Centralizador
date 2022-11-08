@@ -19,9 +19,11 @@ namespace ASPNET_Centralizador
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment entorno;
+        public Startup(IConfiguration configuration, IWebHostEnvironment entorno)
         {
             Configuration = configuration;
+            this.entorno = entorno;
         }
 
         public IConfiguration Configuration { get; }
@@ -41,9 +43,21 @@ namespace ASPNET_Centralizador
             //IVideojuegoRepository -> ImplVideojuegoRepository
             services.AddScoped<IVideojuegoRepository, ImplVideojuegoRepository>();
             services.AddScoped<IEstudianteRepository, ImplEstudianteRepository>();
-            services.AddDbContext<InstitutoDbContext>(op=>op.UseSqlServer(
-                Configuration.GetConnectionString("una_conexion")    
-            ));
+
+            //Selector de entorno
+            if (entorno.IsProduction())
+            {
+                Console.WriteLine("Conectándome a la base de datos en producción");
+                services.AddDbContext<InstitutoDbContext>(op => op.UseSqlServer(
+                Configuration.GetConnectionString("InstitutoProd")));
+            }
+            else {
+                Console.WriteLine("Conectándome a la base de datos en desarrollo");
+                services.AddDbContext<InstitutoDbContext>(op => op.UseSqlServer(
+                    Configuration.GetConnectionString("una_conexion")
+                ));
+            }
+            
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddHttpClient<ICampusHistorialCliente,ImplCampusHistorialCliente>();

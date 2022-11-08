@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASPNET_campus
 {
@@ -26,6 +28,9 @@ namespace ASPNET_campus
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddDbContext<CampusDbContext>(op => op.UseInMemoryDatabase("miDb"));
+            services.AddScoped<IPerfilRepository,ImplPerfilRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
