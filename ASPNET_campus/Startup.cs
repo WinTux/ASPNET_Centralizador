@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using ASPNET_campus.Conexion;
 
 namespace ASPNET_campus
 {
