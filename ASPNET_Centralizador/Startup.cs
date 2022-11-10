@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Serialization;
 using ASPNET_Centralizador.ComunicacionSync.Http;
+using ASPNET_Centralizador.ComunicacionAsync;
 
 namespace ASPNET_Centralizador
 {
@@ -61,6 +62,8 @@ namespace ASPNET_Centralizador
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddHttpClient<ICampusHistorialCliente,ImplCampusHistorialCliente>();
+
+            services.AddSingleton<IBusDeMansajesCliente, ImplBusDeMansajesCliente>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

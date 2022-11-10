@@ -1,4 +1,5 @@
-﻿using ASPNET_Centralizador.ComunicacionSync.Http;
+﻿using ASPNET_Centralizador.ComunicacionAsync;
+using ASPNET_Centralizador.ComunicacionSync.Http;
 using ASPNET_Centralizador.DTO;
 using ASPNET_Centralizador.Models;
 using ASPNET_Centralizador.Repos;
@@ -19,11 +20,13 @@ namespace ASPNET_Centralizador.Controllers
         private readonly IEstudianteRepository repo;
         private readonly IMapper mapper;
         private readonly ICampusHistorialCliente campusHistorialCliente;
-        public EstudianteController(IEstudianteRepository estRepository, IMapper mapper, ICampusHistorialCliente campusHistorialCliente)
+        private readonly IBusDeMansajesCliente busDeMansajesCliente;
+        public EstudianteController(IEstudianteRepository estRepository, IMapper mapper, ICampusHistorialCliente campusHistorialCliente, IBusDeMansajesCliente busDeMansajesCliente)
         {
             repo = estRepository;
             this.mapper = mapper;
             this.campusHistorialCliente = campusHistorialCliente;
+            this.busDeMansajesCliente = busDeMansajesCliente;
         }
         [HttpGet]
         public ActionResult<IEnumerable<EstudianteReadDTO>> getEstudiantes()
@@ -53,6 +56,17 @@ namespace ASPNET_Centralizador.Controllers
             try {
                 await campusHistorialCliente.ComunicarseConCampus(estRetorno);
             } catch (Exception e) {
+                Console.WriteLine("Ocurrió un erro al intentar comunicarse con el servicio Campus " +
+                    "(forma sincronizada)");
+                Console.WriteLine(e.Message);
+            }
+            try
+            {
+                var estudiantePublicadoDTO = mapper.Map<EstudiantePublicadoDTO>(estRetorno);
+                estudiantePublicadoDTO.tipoEvento = "estudiante_publicado";
+            }
+            catch (Exception e)
+            {
                 Console.WriteLine("Ocurrió un erro al intentar comunicarse con el servicio Campus " +
                     "(forma sincronizada)");
                 Console.WriteLine(e.Message);
