@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ASPNET_campus.Conexion;
+using ASPNET_campus.Eventos;
+using ASPNET_campus.ComunicacionAsync;
 
 namespace ASPNET_campus
 {
@@ -32,6 +34,8 @@ namespace ASPNET_campus
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<CampusDbContext>(op => op.UseInMemoryDatabase("miDb"));
             services.AddScoped<IPerfilRepository,ImplPerfilRepository>();
+            services.AddSingleton<IProcesadorDeEventos, ImplProcesadorDeEventos>();
+            services.AddHostedService<BusDeMensajesSuscriptor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

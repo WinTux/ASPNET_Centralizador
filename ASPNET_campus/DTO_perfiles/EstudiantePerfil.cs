@@ -9,6 +9,15 @@ namespace ASPNET_campus.DTO_perfiles
         public EstudiantePerfil()
         {
             CreateMap<Estudiante, EstudianteReadDTO>(); // -->
+            CreateMap<Perfil, PerfilReadDTO>(); // -->
+            CreateMap<PerfilCreateDTO, Perfil>(); // -->
+            CreateMap<EstudiantePublicadoDTO, Estudiante>()
+                .ForMember(
+                    destino => destino.fci,
+                    opcion => opcion.MapFrom(
+                        origen => origen.ci
+                    )
+                );
         }
     }
 }

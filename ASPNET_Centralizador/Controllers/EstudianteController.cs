@@ -64,6 +64,7 @@ namespace ASPNET_Centralizador.Controllers
             {
                 var estudiantePublicadoDTO = mapper.Map<EstudiantePublicadoDTO>(estRetorno);
                 estudiantePublicadoDTO.tipoEvento = "estudiante_publicado";
+                busDeMansajesCliente.PublicarNuevoEstudiante(estudiantePublicadoDTO);
             }
             catch (Exception e)
             {

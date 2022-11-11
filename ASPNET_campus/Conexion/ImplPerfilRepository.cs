@@ -58,5 +58,10 @@ namespace ASPNET_campus.Conexion
         {
             return (context.SaveChanges() >= 0);
         }
+
+        public bool ExisteEstudianteForaneo(int fci)
+        {
+            return context.Estudiantes.Any(est => est.fci == fci);
+        }
     }
 }
